@@ -39,5 +39,5 @@ class UsersController < ApplicationController
         flash[:danger] = "Not Authorized"
         redirect_to root_path
       end
-
+    end
 end

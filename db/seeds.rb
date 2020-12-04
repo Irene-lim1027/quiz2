@@ -5,8 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Like.delete_all
+Review.destroy_all
 Idea.destroy_all
 User.destroy_all
+
 
 
 PASSWORD = 'apples'
@@ -55,6 +58,7 @@ ideas = Idea.all
       user: users.sample
   })
   end
+  i.likers = users.shuffle.slice(0,rand(users.count))
 end
 
 reviews = Review.all
@@ -63,3 +67,4 @@ reviews = Review.all
 puts Cowsay.say("Generated #{ideas.count} ideas", :dragon)
 puts Cowsay.say("Generated #{users.count} users", :cow)
 puts Cowsay.say("Generated #{reviews.count} reviews", :sheep)
+puts Cowsay.say("Generated#{Like.count} likes for ideas", :bunny)

@@ -2,11 +2,31 @@
     <p><%= @idea.description %></p>
        <h5> Created by: <%= @idea.user&.full_name %> </h5>
     <p><%= time_ago_in_words(@idea.created_at) %></p>
-        <% if can? (:crud, @idea) %>
+        <% if can? :crud, @idea %>
         <%=link_to "Edit", edit_idea_path(@idea)%>
         <%=link_to "Delete",idea_path(@idea), method: :delete, data: {confirm: "Are you sure you want to delete?"} %>
         <% end %>
+<div>
+  <% if @like.present? %>
+    <%= link_to(
+      "Liked",
+      idea_like_path(@idea,@like),
+      method: :delete
+    )%>
+  <% else %>
+    <%= link_to(
+      "Like",
+      idea_likes_path(@idea),
+      method: :post
+    )%>
+  <% end %>
+</div>
 
+<div>
+  👍 Likes:
+  <%= @idea.likes&.count %>
+  
+</div>
 
 <h2>🐥 Reviews: </h2>
     <%= form_with model: [@idea,@review], local:true do |f| %>
@@ -26,7 +46,7 @@
         <small>
         Reviewed by: <%= r.user&.full_name%>
         </small>
-        <% if can? (:crud, r)%>  
+        <% if can? :crud, r%>  
         <%= link_to(
          "Delete",
          idea_review_path(@idea,r),method: :delete, 
