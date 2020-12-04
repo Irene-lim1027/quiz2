@@ -1,4 +1,36 @@
 <h1><%= @idea.title %></h1>
     <p><%= @idea.description %></p>
+       <h5> Created by: <%= @idea.user&.full_name %> </h5>
+    <p><%= time_ago_in_words(@idea.created_at) %></p>
+        <% if can? :crud, @idea %>
         <%=link_to "Edit", edit_idea_path(@idea)%>
         <%=link_to "Delete",idea_path(@idea), method: :delete, data: {confirm: "Are you sure you want to delete?"} %>
+        <% end %>
+
+
+<h2>🐥 Reviews: </h2>
+    <%= form_with model: [@idea,@review], local:true do |f| %>
+    <%= f.text_area(
+            :body,
+            cols: 50,
+            rows: 5,
+            placeholder: "Leave your reviews" 
+        )%>
+    <p><%= f.submit "Submit" %></p>
+<% end %>
+
+   <ul>
+        <% @reviews.each do |r| %>
+    <li>
+        <p><%= r.body %></p>  
+        <%= time_ago_in_words(r.created_at) %>
+        <% if can? :crud, r %>  
+        <%= link_to(
+         "Delete",
+         idea_review_path(@idea,r),method: :delete, data: {confirm: "Are you sure you want to delete reviews?"})%>
+    
+    <% end %>
+    <% end %>
+    </li>
+    </ul>
+      

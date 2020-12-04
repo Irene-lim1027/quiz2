@@ -1,7 +1,9 @@
 class IdeasController < ApplicationController
 
+    before_action :authenticate_user!, except:[:index, :show]
+    before_action :authorize_user!, only:[:edit,:update,:destroy]
     before_action :find_idea, only:[:show, :edit, :update, :destroy]
-    
+
     def index
         @ideas = Idea.all.order('created_at DESC')
     end
@@ -12,34 +14,34 @@ class IdeasController < ApplicationController
 
     def create
         @idea = Idea.new params.require(:idea).permit(:title, :description)
-
+        @idea.user = current_user
         if @idea.save
             flash[:notice] = "Idea created successfully"
-            redirect_to idea_path(@idea)
+            redirect_to ideas_path
         else
             render :new
         end
     end
 
     def show
-        @idea = Idea.find params[:id]
+       @review = Review.new
+       @reviews = @idea.reviews
+       
     end
 
     def edit
-        @idea = Idea.find params[:id]
+        
     end
 
     def update
-        @idea = Idea.find params[:id]
-            if @idea.update{params.require(:idea).permit(:title, :description)}
-                redirect_to idea_path(@idea)
-            else
-                render :edit
+        if @idea.update{params.require(:idea).permit(:title, :description)}
+            redirect_to idea_path(@idea)
+        else
+            render :edit
         end
     end
 
     def delete
-        @idea =Idea.find params[:id]
         @idea.destroy
         redirect_to ideas_path
     end
@@ -50,6 +52,11 @@ class IdeasController < ApplicationController
             @idea =Idea.find params[:id]
         end
 
-
-
+        def authorize_user!
+            unless can? :crud, @idea
+            flash[:danger] = "Access Denied"
+            redirect_to root_path
+        end
+        
+    end
 end
