@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   
     def authenticate_user!
       unless user_signed_in?
-        flash[:danger] = "Sign in before trying that!"
+        flash[:danger] = "Sign in before!"
         redirect_to new_session_path
       end
     end

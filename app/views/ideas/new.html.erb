@@ -1,23 +1,24 @@
-<h1>Create New ideas 🌸</h1>
+<h2>Create New ideas 💬 </h2>
 
-<% if@idea.errors.any? %>
-    <ul>
-    <% @idea.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+ <% if @idea.errors.any? %>
+        <ul>
+        <% @idea.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+        </ul>
     <% end %>
-    </ul>
-<% end %>
 
-<%=form_for @idea do |f| %>
+    <%=form_for @idea do |f| %>
 
-<div>
-  <%= f.label :title %>
-<%= f.text_field :title %>
-</div>
+    <div>
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+    </div>
 
-<div>
-<%= f.label :description %>
-<%= f.text_field :description %>
-</div>
-<%= f.submit %>
-<% end %>
+    <div>
+        <%= f.label :description %>
+        <%= f.text_field :description %>
+    </div>
+        <%= f.submit %>
+    <% end %>
+   

@@ -1,6 +1,6 @@
-<h1><%= @idea.title %></h1>
+<h2><%= @idea.title %></h2>
     <p><%= @idea.description %></p>
-       <h5> Created by: <%= @idea.user&.full_name %> </h5>
+      <h5> Created by: <%= @idea.user&.full_name %> </h5>
     <p><%= time_ago_in_words(@idea.created_at) %></p>
         <% if can? :crud, @idea %>
         <%=link_to "Edit", edit_idea_path(@idea)%>
@@ -27,7 +27,7 @@
   <%= @idea.likes&.count %>
 </div>
 <br>
-<h2>🐥 Reviews: </h2>
+<h2>🐰 Reviews: </h2>
     <%= form_with model: [@idea,@review], local:true do |f| %>
     <%= f.text_area(
             :body,
@@ -43,8 +43,10 @@
     <li>
         <p><%= r.body %></p> 
         <small>
-        Reviewed by: <%= r.user&.full_name%>
+        Reviewed by: <%= r.user&.full_name%>,
+        <%= time_ago_in_words(r.created_at) %>
         </small>
+        <br>
         <% if can? :crud, r%>  
         <%= link_to(
          "Delete",
@@ -52,8 +54,7 @@
          data: {confirm: "Are you sure you want to delete reviews?"})%>
     
     <% end %>
-  
-       </li>
+    </li>
     <% end %>
    
     </ul>

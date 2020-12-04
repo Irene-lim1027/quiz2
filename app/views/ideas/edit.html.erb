@@ -1,15 +1,14 @@
-<h1>Edit Idea Page 🐳</h1>
+<h2>Edit Idea Page 🐳</h2>
 
-<%=form_for @idea do |f| %>
-
+ <%=form_for @idea do |f| %>
 <div>
-<%= f.label :title %>
-<%= f.text_field :title %>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
 </div>
 
 <div>
-<%= f.label :description %>
-<%= f.text_field :description %>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
 </div>
-<%= f.submit %>
+    <%= f.submit %>
 <% end %>

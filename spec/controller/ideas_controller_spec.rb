@@ -76,6 +76,11 @@ describe "#create" do
                 idea = Idea.last
                 expect(request).to redirect_to(ideas_path)
             end
+
+            it "sets a flash message" do
+                valid_request
+                expect(flash[:notice]).to be
+            end
         end
 
         context "with invalid params" do
