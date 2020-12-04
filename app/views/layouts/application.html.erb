@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Quiz2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
+  </head>
+
+  <body>
+         <%= flash[:notice] || flash[:alert] || flash[:danger] %>
+          <%= link_to 'Home', root_path %>
+          <%= link_to 'New Idea',new_idea_path %>
+    <%= yield %>
+  </body>
+</html>
