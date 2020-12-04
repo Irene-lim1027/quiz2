@@ -25,9 +25,8 @@
 <div>
   👍 Likes:
   <%= @idea.likes&.count %>
-  
 </div>
-
+<br>
 <h2>🐥 Reviews: </h2>
     <%= form_with model: [@idea,@review], local:true do |f| %>
     <%= f.text_area(

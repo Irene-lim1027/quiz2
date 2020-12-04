@@ -1,8 +1,8 @@
 class IdeasController < ApplicationController
 
     before_action :authenticate_user!, except:[:index, :show]
-    before_action :authorize_user!, only:[:edit,:update,:destroy]
     before_action :find_idea, only:[:show, :edit, :update, :destroy]
+    before_action :authorize_user!, only:[:edit,:update,:destroy]
 
     def index
         @ideas = Idea.all.order('created_at DESC')
@@ -35,7 +35,8 @@ class IdeasController < ApplicationController
     end
 
     def update
-        if @idea.update{params.require(:idea).permit(:title, :description)}
+        if @idea.update params.require(:idea)
+            .permit(:title, :description)
             redirect_to idea_path(@idea)
         else
             render :edit
