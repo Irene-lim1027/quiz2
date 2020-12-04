@@ -41,7 +41,7 @@ class IdeasController < ApplicationController
         end
     end
 
-    def delete
+    def destroy
         @idea.destroy
         redirect_to ideas_path
     end

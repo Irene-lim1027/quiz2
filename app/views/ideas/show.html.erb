@@ -2,7 +2,7 @@
     <p><%= @idea.description %></p>
        <h5> Created by: <%= @idea.user&.full_name %> </h5>
     <p><%= time_ago_in_words(@idea.created_at) %></p>
-        <% if can? :crud, @idea %>
+        <% if can? (:crud, @idea) %>
         <%=link_to "Edit", edit_idea_path(@idea)%>
         <%=link_to "Delete",idea_path(@idea), method: :delete, data: {confirm: "Are you sure you want to delete?"} %>
         <% end %>
@@ -22,15 +22,21 @@
    <ul>
         <% @reviews.each do |r| %>
     <li>
-        <p><%= r.body %></p>  
-        <%= time_ago_in_words(r.created_at) %>
-        <% if can? :crud, r %>  
+        <p><%= r.body %></p> 
+        <small>
+        Reviewed by: <%= r.user&.full_name%>
+        </small>
+        <% if can? (:crud, r)%>  
         <%= link_to(
          "Delete",
-         idea_review_path(@idea,r),method: :delete, data: {confirm: "Are you sure you want to delete reviews?"})%>
+         idea_review_path(@idea,r),method: :delete, 
+         data: {confirm: "Are you sure you want to delete reviews?"})%>
     
     <% end %>
+  
+       </li>
     <% end %>
-    </li>
+   
     </ul>
+    
       
